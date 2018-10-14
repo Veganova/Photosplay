@@ -1,28 +1,32 @@
 import React, {Component} from 'react';
 import '../styles/Picture.css';
-import ReactFitText from 'react-fittext';
 
 class Picture extends Component {
 
-
   render() {
-    return (
-      <div className="col-lg-2 col-sm-4 col-12">
-        <div className="picture-container">
-          <img className="img-fluid picture" src={this.props.picture.urls.regular}/>
-          <div className="container user-container">
-            <div className="row">
-              <div className="col-4"></div>
-              <div className="col-8 user">
-                <ReactFitText compressor={0.6} minFontSize={10}>
-                <a href={this.props.picture.user.links.html}>@{this.props.picture.user.username}</a>
-                </ReactFitText>
-              </div>
+    // Picture is in small mode - can be selected
+    if (this.props.onSelect) {
+      return (
+        <div className="col-lg-2 col-sm-4 col-12">
+          <div className="picture-container" onClick={() => {this.props.onSelect(this.props.picture)}}>
+            <img className="img-fluid picture" src={this.props.picture.urls.regular}/>
+            <div className="user">
+              <a href={this.props.picture.user.links.html}>@{this.getUsername()}</a>
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
+
+  }
+
+  getUsername() {
+    let username = this.props.picture.user.username;
+    const maxLength = 20;
+    if (username.length > maxLength) {
+      return username.substring(0, maxLength) + "...";
+    }
+    return username;
   }
 }
 

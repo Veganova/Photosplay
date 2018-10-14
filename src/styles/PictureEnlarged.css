@@ -1,0 +1,38 @@
+
+/*.user {*/
+    /*padding: 0px;*/
+/*}*/
+/*.user a {*/
+    /*font-size: 10px;*/
+    /*color:#00BCFF;*/
+    /*text-decoration: none;*/
+    /*line-height: 0px;*/
+/*}*/
+
+/*.user a:hover {*/
+    /*color: #c6bd32;*/
+/*}*/
+
+.data-field {
+    text-align: right;
+}
+
+
+div.lg-image-container {
+}
+
+
+div.lg-image-container img {;
+}
+
+.picture-enlarged {
+    font-size: 17px;
+}
+
+.picture-enlarged button {
+    /*border: 1px solid #363636;*/
+}
+
+.picture-enlarged span {
+    font-size: 17px;
+}

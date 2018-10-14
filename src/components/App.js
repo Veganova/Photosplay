@@ -5,6 +5,7 @@ import axios from "axios";
 import ReactDOM from "react-dom";
 import keys from '../config/keys';
 import Picture from './Picture';
+import PictureEnlarged from "./PictureEnlarged";
 
 
 class App extends Component {
@@ -13,8 +14,48 @@ class App extends Component {
     super();
 
     this.state = {
-      pictures: []
+      pictures: [],
+      selected: {}
     }
+
+    this.handleClick = this.handleClick.bind(this);
+
+  }
+  // componentDidUpdate() {
+  //   document.addEventListener('mousedown', this.handleClick, false);
+  // }
+
+  handleClick(e) {
+    if (this.pictureModal) {
+      if (this.pictureModal.contains(e.target)) {
+        return;
+      }
+      this.setState({selected: {}});
+    }
+
+  }
+
+  getMockedData() {
+    let mock = [];
+    for (let i = 0; i < 25; i++) {
+      mock.push({
+        id: i,
+        description: "alksdf asd f asd fasdf as dfdsfdfd  adsfasdfsd  dsf s fa sdf asd",
+        urls: {
+          "regular": temp
+        },
+        likes: 10,
+        user: {
+          first_name: "Bob",
+          last_name: "Shmob",
+          username: "BuilderofBobs",
+          links: {
+            html: "http://recollect.info"
+          }
+        }
+      });
+    }
+    this.setState({pictures: mock});
   }
 
   componentDidMount() {
@@ -29,43 +70,53 @@ class App extends Component {
     }).then(pictures => {
       this.setState({pictures: pictures.data});
     });
-
-    // let mock = [];
-    // for (let i = 0; i < 25; i++) {
-    //   mock.push({
-    //     id: i,
-    //     urls: {
-    //       "regular": temp
-    //     }
-    //   });
-    // }
-    // this.setState({pictures: mock});
+    // this.getMockedData();
   }
 
   renderPictures() {
     let result = [];
-    this.state.pictures.forEach(picture => result.push(<Picture key={picture.id} picture={picture} />));
+    if (this.state.pictures.length === 0) {
+      return (<div>Loading...</div>);
+    }
+    this.state.pictures.forEach(picture => result.push(<Picture key={picture.id} picture={picture} onSelect={(picture) => this.setState({selected: picture})}/>));
     return result;
   }
 
-  render() {
-    console.log(this.state.pictures);
-    if (this.state.pictures.length > 0) {
+  renderSelected() {
+    if (Object.keys(this.state.selected).length !== 0) {
+      console.log("selected", this.state.selected);
       return (
-        <div className="container-fluid">
+        <div>
+          <div className="modal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content" ref={(modal) => {this.pictureModal = modal}}>
+                <div className="modal-body">
+                  <PictureEnlarged picture={this.state.selected}/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div onClick={this.handleClick}>
+        <div className= {"container-fluid " +   (Object.keys(this.state.selected).length !== 0 ? "blur" : "")} >
           <div className="row header">
             <h3>Photosplay</h3>
-          <hr/>
+            <hr/>
           </div>
           <div className="row">
-          {this.renderPictures()}
+            {this.renderPictures()}
           </div>
         </div>
 
-      );
-    } else {
-      return (<div>Loading...</div>);
-    }
+        {this.renderSelected()}
+      </div>
+    );
   }
 }
 

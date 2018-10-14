@@ -7,7 +7,6 @@
     "bootstrap": "^4.0.0-alpha.6",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-fittext": "^1.0.0",
     "react-scripts": "2.0.4"
   },
   "scripts": {
