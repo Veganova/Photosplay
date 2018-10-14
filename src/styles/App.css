@@ -1,0 +1,65 @@
+body {
+  background: #363636;
+}
+
+@font-face {
+  font-family: Simp;
+  /* Check if there is a better way to refer to the font */
+  /* .eot for IE support */
+  src: url('../styles/fonts/simplifica.eot') format("embedded-opentype");
+  src: url('../styles/fonts/simplifica.ttf') format("truetype");
+}
+
+
+div.header {
+  border-bottom: 2px dashed rgba(0, 0, 0, 0.7);
+}
+
+div h3 {
+  padding: 10px 10px 0px 26px;
+  font-size: 70px;
+  color: #51e3b7;
+  font-family: Simp, serif;
+}
+
+
+
+
+
+
+
+
+
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

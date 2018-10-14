@@ -1,0 +1,47 @@
+.picture-container {
+    z-index: 1;
+
+    margin: 10px;
+
+    box-shadow: 5px 5px rgba(40, 42, 50, 1);
+
+
+    transition: transform .2s;
+}
+
+.picture-container:hover {
+    z-index: 2;
+
+    transform: scale(1.10);
+}
+
+.user-container {
+    background: white;
+}
+
+.user {
+    text-align: right;
+
+}
+.user a {
+
+    color:#00BCFF;
+    text-align:right;
+    text-decoration: none;
+    display: inline;
+}
+
+.user a:hover {
+    color: #c6bd32;
+}
+
+
+
+img.picture {
+    border: 10px solid rgba(255, 255, 255, 1);
+    /*border-radius: 2px;*/
+    border-bottom: 0px;
+}
+
+img.picture:hover {
+}
