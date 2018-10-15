@@ -7,7 +7,7 @@ class Picture extends Component {
     // Picture is in small mode - can be selected
     if (this.props.onSelect) {
       return (
-        <div className="col-lg-2 col-sm-4 col-12">
+        <div className="col-lg-2 col-md-4 col-12">
           <div className="picture-container" onClick={() => {this.props.onSelect(this.props.picture)}}>
             <img className="img-fluid picture" src={this.props.picture.urls.regular}/>
             <div className="user">

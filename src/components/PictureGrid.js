@@ -144,13 +144,15 @@ class PictureGrid extends Component {
       <div onClick={this.handleClick}>
         <div className={"container-fluid " + (Object.keys(this.state.selected).length !== 0 ? "blur" : "")}>
           <div className="row header">
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-sm-6">
               <h3>Photosplay</h3>
             </div>
-            <div className="col-12 col-sm-8 search-container">
+            <div className="col-12 col-sm-6 search-container">
                 <input className="search float-right" type="text" value={this.state.search} onChange={this.handleSearch} placeholder={"Search..."}/>
             </div>
+            <div className="col-12">
             <hr/>
+            </div>
           </div>
           <div className="row">
             {this.renderPictures()}

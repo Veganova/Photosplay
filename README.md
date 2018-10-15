@@ -15,7 +15,7 @@ A basic React app that displays pictures using the Unsplash API. High level feat
 
 Basic Usage:
 
-1) Clone the repo
+1) Clone the repo (https://github.com/Veganova/Photosplay.git)
 
 2) npm i
 
