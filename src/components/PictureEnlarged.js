@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import '../styles/PictureEnlarged.css';
+import keys from '../config/keys.js';
 
 class PictureEnlarged extends Component {
 
@@ -47,12 +48,8 @@ class PictureEnlarged extends Component {
           </div>
 
           <div className="col-6 data-field" >
-            <form method="get" action={this.props.picture.links.download_location} onSubmit ={this.onSubmitHandler}>
-              <button type="submit">Download!</button>
-            </form>
             <button type="button" className="btn btn-default btn-sm">
-
-              <a> <span className="glyphicon glyphicon glyphicon-download"/></a>
+              <a href={this.props.picture.links.download + "?force=true"} download rel="nofollow"> <span className="glyphicon glyphicon glyphicon-download"/></a>
             </button>
           </div>
         </div>

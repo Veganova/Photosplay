@@ -31,3 +31,19 @@ div h3 {
     max-height: calc(100vh - 120px);
     overflow-y: auto;
 }
+
+.search-container {
+    /*display: flex;*/
+    /*align-items: center*/
+
+}
+.search {
+    background: transparent;
+    border: 2px solid #51e3b7;
+    border-radius: 2%;
+    font-size: 20px;
+    color: #51e3b7;
+    padding: 0px 3px;
+    position: relative;
+    top: 30%;
+}

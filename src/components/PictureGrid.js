@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../styles/App.css';
+import '../styles/PictureGrid.css';
 import temp from '../temp.jpeg';
 import axios from "axios";
 import ReactDOM from "react-dom";
@@ -8,19 +8,24 @@ import Picture from './Picture';
 import PictureEnlarged from "./PictureEnlarged";
 
 
-class App extends Component {
+class PictureGrid extends Component {
 
   constructor() {
     super();
 
     this.state = {
       pictures: [],
-      selected: {}
+      selected: {},
+      base: [],
+      search: ""
     }
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
 
+    this.typingTimer = null;
   }
+
   // componentDidUpdate() {
   //   document.addEventListener('mousedown', this.handleClick, false);
   // }
@@ -62,13 +67,16 @@ class App extends Component {
     // axios.get("https://api.unsplash.com/photos/random?client_id="+keys.applicationId).then(x => console.log(x));
     axios({
       method: "get",
-      url: "https://api.unsplash.com/photos/random?client_id="+keys.applicationId,
+      url: "https://api.unsplash.com/photos/random?client_id=" + keys.applicationId,
       params: {
         count: 25,
         orientation: "squarish"
       }
     }).then(pictures => {
-      this.setState({pictures: pictures.data});
+      this.setState({pictures: pictures.data, base: pictures.data});
+    }).catch(err => {
+      console.log('Error happened during fetching!', err)
+      alert(err);
     });
     // this.getMockedData();
   }
@@ -89,7 +97,9 @@ class App extends Component {
         <div>
           <div className="modal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
-              <div className="modal-content" ref={(modal) => {this.pictureModal = modal}}>
+              <div className="modal-content" ref={(modal) => {
+                this.pictureModal = modal
+              }}>
                 <div className="modal-body">
                   <PictureEnlarged picture={this.state.selected}/>
                 </div>
@@ -101,12 +111,46 @@ class App extends Component {
     }
   }
 
+  handleSearch(e) {
+    clearTimeout(this.typingTimer);
+    const query = e.target.value;
+    this.typingTimer = setTimeout(() => {
+      // Reverts back to original random pictures if no query is present
+      if (!query) {
+        this.setState({pictures: this.state.base});
+      } else {
+        axios({
+            method: "get",
+            url: "https://api.unsplash.com/search/photos?client_id=" + keys.applicationId,
+            params: {
+              query: query,
+              per_page: 20
+            }
+          }
+        ).then(searchResults => {
+          this.setState({pictures: searchResults.data.results})
+        }).catch(err => {
+          console.log('Error happened during searching!', err)
+          alert(err);
+        });
+      }
+    }, 1000);
+
+    this.setState({search: e.target.value});
+  }
+
+
   render() {
     return (
       <div onClick={this.handleClick}>
-        <div className= {"container-fluid " +   (Object.keys(this.state.selected).length !== 0 ? "blur" : "")} >
+        <div className={"container-fluid " + (Object.keys(this.state.selected).length !== 0 ? "blur" : "")}>
           <div className="row header">
-            <h3>Photosplay</h3>
+            <div className="col-12 col-sm-4">
+              <h3>Photosplay</h3>
+            </div>
+            <div className="col-12 col-sm-8 search-container">
+                <input className="search float-right" type="text" value={this.state.search} onChange={this.handleSearch} placeholder={"Search..."}/>
+            </div>
             <hr/>
           </div>
           <div className="row">
@@ -120,4 +164,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default PictureGrid;
