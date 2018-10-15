@@ -64,7 +64,6 @@ class PictureGrid extends Component {
   }
 
   componentDidMount() {
-    // axios.get("https://api.unsplash.com/photos/random?client_id="+keys.applicationId).then(x => console.log(x));
     axios({
       method: "get",
       url: "https://api.unsplash.com/photos/random?client_id=" + keys.applicationId,
@@ -92,7 +91,7 @@ class PictureGrid extends Component {
 
   renderSelected() {
     if (Object.keys(this.state.selected).length !== 0) {
-      console.log("selected", this.state.selected);
+      // A picture has been selected
       return (
         <div>
           <div className="modal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
